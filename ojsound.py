@@ -115,14 +115,19 @@ def rhyme(s):
 
     return sd+vw
 
+def oksound(w):
+    cutword()
+    z = rhyme(text)
+    return z
+
 
 cutword()
 #print(data)
 z = rhyme(text)
-
-convertdata()
+#print(z)
+#convertdata()
 #print(datas)
-find()
+#find()
 #print(i2)
-show()
+#show()
 #print(data0[:30])

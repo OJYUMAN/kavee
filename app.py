@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request
 import ssg
+#from ojsound import*
 
 app = Flask(__name__)
 
@@ -28,6 +29,7 @@ def submit():
         for m in range(len(text2[i])):
             text3[i].append(0)
     (text3[0])[0]=1
+    #oksound((text2[0])[0])
     #print(len(text2))
     #print(text2)
     #T1 = "".join(text2[0])
