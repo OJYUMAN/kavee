@@ -32,14 +32,17 @@
 <body>
     <ul>
         <li><a>Kavee</a></li>
-        <li><a href="#a">กาพย์</a></li>
-        <li><a href="#b">กลอน</a></li>
-        <li><a href="#c">โคลง</a></li>
     </ul>
     <div class="container">
         <h2>คําประพันธ์ของคุณ</h2>
         <form action="{{ url_for('submit') }}" method="post">
-            <textarea name="text"cols="100" rows="10"></textarea>
+            <select name="types" action="/" method="GET">
+            {% for type in types %}
+                <option value= "{{type}}" SELECTED>{{type}}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <textarea name="text" cols="100" rows="10"></textarea>
             <br>
             <input type="submit">
         </form>

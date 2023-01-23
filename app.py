@@ -4,6 +4,10 @@ from checksound import*
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def drop():
+    types = ['กาพย์', 'กลอน', 'โคลง', 'ฉันท์' ,'ร่าย']
+    return render_template('index.html', types=types)
 
 @app.route('/')
 def index() :
