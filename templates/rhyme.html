@@ -19,12 +19,20 @@
             //console.log(list);
             //console.log(list2);
 
-            for(i=0; i < list.length; i++){
+            for(i=0; i < list.length; i++){//loopขึ้นบรรทัดใหม่
                 sentence = list[i];//ทําlistกลับเป็นarray
                 booleen = list2[i];
+                if(( i % 2 ) == 0){//ถ้าiเป็นเลขคู่ให้ขึ้นบรรทัดใหม่
+                    outstr = outstr.concat("<br>")
+                }
+                else{//ถ้าเปนเลขคี่ให้เว้นวรรค
+                    outstr = outstr.concat("&nbsp; &nbsp; &nbsp; &nbsp;")
+                }
+                console.log(i);
                 for(m=0; m < sentence.length; m++){
                     word = sentence[m];//แยกออกมาเป็นคําๆ
-                    console.log(word);
+                    //console.log(word);
+                    //console.log(m);
                     if (booleen[m] == 1){//ถ้าค่าเป็น1ให้สร้างโค้ดhtmlสีแดงไปเก็บในourstr
                         outstr = outstr.concat("<span style='color: red;'>");
                         outstr = outstr.concat(word);
@@ -34,12 +42,12 @@
                         outstr = outstr.concat(word);
                         outstr = outstr.concat("</span>")
                     }
+
             }}
-            console.log(outstr)
+            //console.log(outstr)
             document.getElementById("txtout").innerHTML = outstr
         </script>
-        <!-- <p>{{ t1 }} &nbsp; &nbsp; &nbsp; {{ t2 }} <br> <p>{{ t3 }} &nbsp; &nbsp; &nbsp;  <font color="#ooooFF"> {{ t3 }} </font> <br>  </p>
-  </p> -->
+
     </div>
 </body>
 </html>

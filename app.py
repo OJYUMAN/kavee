@@ -32,22 +32,28 @@ def submit():
         for m in range(len(text2[i])):#ใส่ 0 ใน []
             text3[i].append(0)
 
-    if (text2[0])[-1] != (text2[0])[2] or (text2[0])[4]:
-        (text3[0])[-1] = 1
-        (text3[1])[2] = 1
-        (text3[1])[4] = 1
 
-    #(text3[0])[0]=1
-    print(rhyme((text2[0])[0]))
-    #oksound((text2[0])[0])
-    #print(len(text2))
-    #print(text2)
-    #T1 = "".join(text2[0])
-    #T2 = "".join(text2[1])
-    #T3 = "".join(text2[2])
-    #T4 = "".join(text2[3])
+    for b in range(len(text)):
+        if rhyme((text2[b])[-1]) != rhyme((text2[1])[2]):
+            if rhyme((text2[0])[-1]) != rhyme((text2[1])[4]):
+                (text3[0])[-1] = 1
+                (text3[1])[2] = 1
+                (text3[1])[4] = 1
 
-    #print((text2[1])[2])
+        if rhyme((text2[1])[-1]) != rhyme((text2[2])[-1]):
+            (text3[1])[-1] = 1
+            (text3[2])[-1] = 1
+
+        if rhyme((text2[2])[-1]) != rhyme((text2[3])[2]):
+            if rhyme((text2[2])[-1]) != rhyme((text2[3])[4]):
+                (text3[2])[-1] = 1
+                (text3[3])[2] = 1
+                (text3[3])[4] = 1
+
+
+
+
+
     return render_template("rhyme.html",text=text2, text3=text3)
 
 
