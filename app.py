@@ -4,10 +4,15 @@ import ssg
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def drop():
+    types = ['กาพย์', 'กลอน', 'โคลง', 'ฉันท์' ,'ร่าย']
+    return render_template('index.html', types=types)
 
 @app.route('/')
 def index() :
     return render_template("index.html")
+
 
 
 """
@@ -21,6 +26,7 @@ def index() :
 def submit():
     #text=request.args.get("text")
     text = request.form['text']
+    type = request.form['types']
     text = text.split("\r\n")
     text2 = [ssg.syllable_tokenize(a) for a in text]
     text3 = []
@@ -36,9 +42,9 @@ def submit():
     #T2 = "".join(text2[1])
     #T3 = "".join(text2[2])
     #T4 = "".join(text2[3])
-
     #print((text2[1])[2])
-    return render_template("rhyme.html",text=text2, text3=text3)
+    #print(type)
+    return render_template("rhyme.html",type=type,text=text2, text3=text3)
 
 
 if __name__ == "__main__":
