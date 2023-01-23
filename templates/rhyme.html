@@ -12,18 +12,20 @@
         <p id="txtout"></p>
 
         <script>
-            var list = JSON.parse('{{ text | tojson }}');
-            var list2 = JSON.parse('{{ text3 | tojson }}');
+            var list = JSON.parse('{{ text | tojson }}');//รับarrayคํา
+            var list2 = JSON.parse('{{ text3 | tojson }}');//รับarray[0,1]
             var outstr = "";
-            console.log(list2);
+
+            //console.log(list);
+            //console.log(list2);
+
             for(i=0; i < list.length; i++){
-                sentence = list[i];
+                sentence = list[i];//ทําlistกลับเป็นarray
                 booleen = list2[i];
                 for(m=0; m < sentence.length; m++){
-                    word = sentence[m];
-
+                    word = sentence[m];//แยกออกมาเป็นคําๆ
                     console.log(word);
-                    if (booleen[m] == 1){
+                    if (booleen[m] == 1){//ถ้าค่าเป็น1ให้สร้างโค้ดhtmlสีแดงไปเก็บในourstr
                         outstr = outstr.concat("<span style='color: red;'>");
                         outstr = outstr.concat(word);
                         outstr = outstr.concat("</span>")

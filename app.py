@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 import ssg
-#from ojsound import*
+from checksound import*
 
 app = Flask(__name__)
 
@@ -19,16 +19,22 @@ def index() :
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    #text=request.args.get("text")
-    text = request.form['text']
-    text = text.split("\r\n")
-    text2 = [ssg.syllable_tokenize(a) for a in text]
-    text3 = []
-    for i in range(len(text2)):
+    text = request.form['text'] #รับtextจากindex
+    text = text.split("\r\n") #ตัดวรรค
+    text2 = [ssg.syllable_tokenize(a) for a in text]#ตัดเป็นคําในวรรคอีกที
+    text3 = []#สร้างarrayเป็นตัวเช็คคําถูกผิด >>>> [0,1]
+    for i in range(len(text2)):#สร้าง []
         text3.append([])
-        for m in range(len(text2[i])):
+        for m in range(len(text2[i])):#ใส่ 0 ใน []
             text3[i].append(0)
-    (text3[0])[0]=1
+
+    if (text2[0])[-1] != (text2[0])[2] or (text2[0])[4]:
+        (text3[0])[-1] = 1
+        (text3[1])[2] = 1
+        (text3[1])[4] = 1
+
+    #(text3[0])[0]=1
+    print(rhyme((text2[0])[0]))
     #oksound((text2[0])[0])
     #print(len(text2))
     #print(text2)
