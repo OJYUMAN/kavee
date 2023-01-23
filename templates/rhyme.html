@@ -9,7 +9,36 @@
 <body>
     <div class="container">
         <h2>ตรวจ</h2>
-        <p>{{ text }}</p>
+        <p id="txtout"></p>
+
+        <script>
+            var list = JSON.parse('{{ text | tojson }}');
+            var list2 = JSON.parse('{{ text3 | tojson }}');
+            var outstr = "";
+            console.log(list2);
+            for(i=0; i < list.length; i++){
+                sentence = list[i];
+                booleen = list2[i];
+                for(m=0; m < sentence.length; m++){
+                    word = sentence[m];
+
+                    console.log(word);
+                    if (booleen[m] == 1){
+                        outstr = outstr.concat("<span style='color: red;'>");
+                        outstr = outstr.concat(word);
+                        outstr = outstr.concat("</span>")
+                    }else{
+                        outstr = outstr.concat("<span style='color: black;'>");
+                        outstr = outstr.concat(word);
+                        outstr = outstr.concat("</span>")
+                    }
+            }}
+            console.log(outstr)
+            document.getElementById("txtout").innerHTML = outstr
+        </script>
+        <!-- <p>{{ t1 }} &nbsp; &nbsp; &nbsp; {{ t2 }} <br> <p>{{ t3 }} &nbsp; &nbsp; &nbsp;  <font color="#ooooFF"> {{ t3 }} </font> <br>  </p>
+  </p> -->
     </div>
 </body>
 </html>
+
