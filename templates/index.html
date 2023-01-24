@@ -38,7 +38,7 @@
         <form action="{{ url_for('submit') }}" method="post">
             <select name="types" action="/" method="GET">
             {% for type in types %}
-                <option value= "{{type}}" SELECTED>{{type}}</option>
+                <option value= "{{types[1]}}" SELECTED>{{type}}</option>
             {% endfor %}
             </select>
             <br>

@@ -44,11 +44,16 @@ def rhyme(s):
     #print(s)
     y = s
 
-    if len(s) >= 3 and (s[1] == "ร" or s[1] == "ล"):  #ลบตัวควบกลํ้า
+    """if len(s) >= 3 and (s[1] == "ร" or s[1] == "ล"):  #ลบตัวควบกลํ้า
         s = s.replace("ร", "")
         s = s.replace("ล", "")
+    """
+    if len(s) >= 3 and s[0] in "มวกขฃคฅฆงยญณนฎฏดตศษสบปพภผฝฟหอฮจฉชซฌฐฑฒถทธรฤลฦ" and s[1] in "มวกขฃคฅฆงยญณนฎฏดตศษสบปพภผฝฟหอฮจฉชซฌฐฑฒถทธรฤลฦ":
+        s = list(s)
+        del s[0]
+        s = "".join(s)
 
-    #print(s)
+    print(s)
 
     first = set(x)
     second = set(y)
