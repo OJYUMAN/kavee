@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 import ssg
-from checksound import*
+from checksound import *
 
 app = Flask(__name__)
 
