@@ -42,15 +42,24 @@
             {% endfor %}
             </select>
             <br>
-            <textarea name="text" cols="100" rows="10"></textarea>
+            <textarea name="text" cols="100" rows="10">{{text}}</textarea>
             <br>
-            <input type="submit">
+            <button type="submit" formaction="/submit">ตรวจ</button>
+            <button type="submit" formaction="/submit2">หาคําคล้องจอง</button>
         </form>
     </div>
-    
+    {{texty}}
+
+    <p id="texty"></p>
+    <script>
+        var txt = texttt;
+        console.log(txt);
+
+    </script>
+
+
+
+
+
 </body>
 </html>
-
-
-
-

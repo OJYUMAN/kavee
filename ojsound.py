@@ -13,7 +13,7 @@ tu2 = str.maketrans("ะัาิีึืุูเแโอยำใไว็"
 
 #data0 = list(thai_words()) + list(thai_syllables()) + list(thai_negations()) + list(thai_stopwords()) + list(thai_family_names()) + list(thai_female_names()) + list(thai_male_names()) + list(countries()) + list(provinces())
 data0 = list(thai_words()) + list(thai_syllables())
-text = input("text =")
+
 data = []
 datas = []
 vw = ""
@@ -121,13 +121,27 @@ def oksound(w):
     return z
 
 
-cutword()
-#print(data)
-z = rhyme(text)
-#print(z)
-#convertdata()
-#print(datas)
-#find()
-#print(i2)
-#show()
+def findword(word):
+    global data0
+    data0 = list(thai_words()) + list(thai_syllables())
+    global data
+    data = []
+    global datas
+    datas = []
+    global vw
+    vw = ""
+    global i2
+    i2 = []
+    text = word
+    cutword()
+    #print(data)
+    z = rhyme(text)
+    #print(z)
+    convertdata()
+    #print(datas)
+    find()
+    #print(i2)
+    show()
 #print(data0[:30])
+
+

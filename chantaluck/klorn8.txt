@@ -1,0 +1,4 @@
+x,oo,x/,x,x/,x,x,1,l
+x,oo,1/,x,1/,x,x,2p,bce
+x,oo,x/,x,x/,x,x,2,ad
+x,oo,2/,x,2/,x,x,p,ad
