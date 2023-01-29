@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def drop():
-    types = ['กาพย์ฉบัง ๑๖','กาพย์ยานี ๑๑',"กลอนสุภาพ"]
+    types = ['กลอนสุภาพ','กาพย์ยานี ๑๑','กาพย์ฉบัง ๑๖']
     return render_template('index.html', types=types, texty=[])
 
 @app.route('/')
@@ -135,7 +135,7 @@ def submit():
 
 @app.route('/submit2', methods=['POST'])
 def submit2():
-    types = ['กาพย์ฉบัง ๑๖','กาพย์ยานี ๑๑',"กลอนสุภาพ"]
+    types = ['กลอนสุภาพ','กาพย์ยานี ๑๑','กาพย์ฉบัง ๑๖']
     text = request.form['text']
     text2 = ssg.syllable_tokenize(text)#ตัดคํา
     text44 = text2[-1]#เอาคําสุดท้ายที่พิม
