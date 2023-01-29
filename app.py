@@ -158,7 +158,6 @@ def submit2():
     return render_template("index.html", text=text, texty=text55, types=types)
 
 if __name__ == "__main__":
-    app.debug=True
     app.run()
 
 
