@@ -2,12 +2,13 @@ from flask import Flask, render_template, request
 import ssg
 from checksound import *
 from ojsound import *
+"""
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from time import sleep
-
+"""
 
 
 tu = str.maketrans("มวกขฃคฅฆงยญณนฎฏดตศษสบปพภผฝฟหอฮจฉชซฌฐฑฒถทธรฤลฦ"
@@ -16,13 +17,11 @@ tu = str.maketrans("มวกขฃคฅฆงยญณนฎฏดตศษส
 tu2 = str.maketrans("ะัาิีึืุูเแโอยำใไว็"
                    ,"abcdefghijklmnopqrs")
 
-
-
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def drop():
-    types = ['กลอนสุภาพ','กาพย์ยานี ๑๑','กาพย์ฉบัง ๑๖']
+    types = ["กลอนสุภาพ",'กาพย์ฉบัง ๑๖','กาพย์ยานี ๑๑']
     return render_template('index.html', types=types, texty=[])
 
 @app.route('/')
@@ -63,12 +62,13 @@ def submit():
         file = open("chantaluck/chabung16.txt", "r")
     chant = file.read()
     chant = chant.split("\n")
-    print(chant)
+    # print(chant)
 
-    bote = len(chant) #จำนวนวรรคในบท
-    r = len(text2) #จำนวนวรรค
-    r = r/bote #จำนวนบท
+    bote = len(chant)  # จำนวนวรรคในบท
+    r = len(text2)  # จำนวนวรรค
+    r = r/bote  # จำนวนบท
     newchant = [x.split(",") for x in chant]
+    # ถ้าจำนวนวรรค/จำนวนวรรคต่อ 1 บทไม่ลงตัว error ไปเลย
     if r != int(r):
         return render_template("rhyme.html", text=["วรรคไม่ครบบท"], text3=[1])
     # วรรคครบ
@@ -77,8 +77,11 @@ def submit():
     for x in newchant:
         wannayuk.append(x[-1])
         del x[-1]
-    print(text2)
-    print(newchant)
+    # ตัดช่องสุดท้ายออก (ไว้ตรวจวรรณยุกต์ทีหลัง ยังไม่ได้เอามาใช้)
+    # print(text2)
+    # print(newchant)
+    # newchant is chantaluck (ex. klorn8 -> chant = [['x','x','x',...,'1']])
+    # to make 1 rhyme with 1, 2 rhyme with 2 and so on
     listofrhymeindex = [{} for x in range(5)]
     dictofp={}
     for wak, wakl in enumerate(newchant):
@@ -96,41 +99,49 @@ def submit():
                 if dictofp == {}:
                     dictofp[wak] = [pp]
                 else: dictofp[wak-bote] = [pp]
-    lir = [a for a in listofrhymeindex if a != {}] #list_index_rhyme
-    print(lir)
-    print(dictofp)
+    lir = [a for a in listofrhymeindex if a != {}]  # list_index_rhyme
+    # ได้ lir มา คือ list ของ dict ที่ต้องคล้องจองกัน เช่น [{0: [-1], 1: [2, 4]}, {1: [-1], 2: [-1], 3: [2, 4]}]
+    # แปลว่า วรรค 0 พยางค์สุดท้าย ต้องคล้องกับ วรรค 1 พยางค์ 2 หรือ 4
+    # dictofp คือ list ของ สัมผัสระหว่างบท (เริ่มนำมาใช้ตั้งแต่บทที่ 1 เป็นต้นไป เพราะเริ่มจาก 0)
+    # print(lir)
+    # print(dictofp)
     listtofind = [dict(x) for x in lir]
+    # listtofind ไว้เก็บสัมผัสทั้งบทประพันธ์ โดยนำของเก่ามา loop จนครบทุกบท
+    # loop นี้คือเอา lir กับ dictofp มารวมกัน เก็บใน rhymeind (เริ่มนำมาใช้ตั้งแต่บทที่ 1 เป็นต้นไป เพราะเริ่มจาก 0)
     for key,value in dictofp.items():
         for rhymeind in lir:
-            if any(set(value).issubset(set(v)) and k==key for k, v in rhymeind.items()):
+            if any(set(value).issubset(set(v)) and k == key for k, v in rhymeind.items()):
                 for kk,vv in dictofp.items():
                     if kk not in rhymeind.keys():
-                        rhymeind[kk]=[]
+                        rhymeind[kk] = []
                     if not any(ww in rhymeind[kk] for ww in vv):
                         (rhymeind[kk]).extend(vv)
-    print(listtofind)
-    print(lir)
+    # print(listtofind)
+    # print(lir)
+    # เริ่ม loop listtofind โดยนำ rhymeind มา + ทีละบท
+    # คือรอบแรกให้เป็น bote, รอบสองเป็น 2 * bote เพื่อเก็บค่า index ของวรรคแรกของบท (bote = จำนวนวรรคในบท)
+    # ที่ไม่จต้อง loop ตั้งแต่ 0 เพราะ ใส่ลงใน listtofind แล้วตั้งแต่บรรทัด 108
     for c in range(1,r):
-        fiib = c*bote #first index in bote
+        fiib = c * bote  # first index in bote
         for x in lir:
             dicty = dict()
-            for y,val in x.items():
+            for y, val in x.items():
                 dicty[y+fiib] = val
             listtofind.append(dicty)
     print(listtofind)
+    # listtofind ตอนนี้จะมี dict ไว้ตรวจสอบทั้งบทประพันธ์
+    # นำ listtofind มาเทียบว่าคำที่ต้องคล้องจองมันคล้องกันไหม ถ้าไม่คล้องก็เปลี่ยน text3 ของช่องนั้นเป็น 1
     for ll in listtofind:
         boolee = True
         torhyme = rhyme(text2[list(ll.keys())[0]][list(ll.values())[0][0]])
-        for x,y in ll.items():
+        for x, y in ll.items():
             boolee = boolee and any(rhyme(text2[x][z]) == torhyme for z in y)
         if not boolee:
-            for x,y in ll.items():
+            for x, y in ll.items():
                 for z in y:
                     text3[x][z] = 1
 
-
-
-    return render_template("rhyme.html",text=text2, text3=text3)
+    return render_template("rhyme.html", text=text2, text3=text3)
 
 
 @app.route('/submit2', methods=['POST'])

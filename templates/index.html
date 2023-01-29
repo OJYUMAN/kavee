@@ -121,7 +121,7 @@
     <div class="header">
   <a href="#default" class="logo">kavee</a>
   <div class="header-right">
-    <a class="active" href="#home">Home</a>
+    <a class="active" href="/">Home</a>
     <a onclick="window.location.href='https://forms.gle/ugtpNidKJoACLA599';">review</a>
   </div>
 </div>
@@ -129,8 +129,9 @@
         <h2 class="center">คําประพันธ์ของคุณ</h2>
         <form class="from2" action="{{ url_for('submit') }}" method="post">
             <select name="types" action="/" method="GET">
-            {% for type in types %}
-                <option value= "{{types[1]}}" SELECTED>{{type}}</option>
+                <option value= "{{types[0]}}" SELECTED>{{types[0]}}</option>
+            {% for type in types[1:] %}
+                <option value= "{{type}}">{{type}}</option>
             {% endfor %}
             </select>
             <br>
