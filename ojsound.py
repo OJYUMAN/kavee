@@ -12,12 +12,36 @@ tu2 = str.maketrans("ะัาิีึืุูเแโอยำใไว็"
 
 
 #data0 = list(thai_words()) + list(thai_syllables()) + list(thai_negations()) + list(thai_stopwords()) + list(thai_family_names()) + list(thai_female_names()) + list(thai_male_names()) + list(countries()) + list(provinces())
-data0 = list(thai_words()) + list(thai_syllables())
+data0 =  list(thai_syllables()) + list(thai_words())
+#text = input("text =")
+def final(text44):
+    global data, datas, vw, i2, pp
+    data = []
+    datas = []
+    vw = ""
+    i2 = []
+    pp = []
+    global text
+    text = text44
+    cutword()
+#print(data)
+    global z
+    z = rhyme(text)
+#print(z)
+    convertdata()
+#print(datas)
+    find()
+#print(i2)
+    show()
+    return pp
 
+"""
 data = []
 datas = []
 vw = ""
 i2 = []
+pp = []
+"""
 # data0 = list of all words
 # text = input
 # others will be used later
@@ -58,7 +82,7 @@ def show():
     # print the indeces kept in i2
     global i2
     for x in i2:
-        print(data0[x])
+        pp.append(data0[x])
 
 def rhyme(s):
     global y, x
@@ -91,9 +115,15 @@ def rhyme(s):
     #print(s)
     y = s
 
-    if len(s) >= 3 and (s[1] == "ร" or s[1] == "ล"):  #ลบตัวควบกลํ้า
+    """if len(s) >= 3 and (s[1] == "ร" or s[1] == "ล"):  #ลบตัวควบกลํ้า
         s = s.replace("ร", "")
         s = s.replace("ล", "")
+    """
+    if len(s) >= 3 and s[0] in "มวกขฃคฅฆงยญณนฎฏดตศษสบปพภผฝฟหอฮจฉชซฌฐฑฒถทธรฤลฦ" and s[1] in "มวกขฃคฅฆงยญณนฎฏดตศษสบปพภผฝฟหอฮจฉชซฌฐฑฒถทธรฤลฦ":
+        s = list(s)
+        del s[0]
+        s = "".join(s)
+
 
     #print(s)
 
@@ -115,33 +145,21 @@ def rhyme(s):
 
     return sd+vw
 
+"""
 def oksound(w):
     cutword()
     z = rhyme(text)
     return z
 
 
-def findword(word):
-    global data0
-    data0 = list(thai_words()) + list(thai_syllables())
-    global data
-    data = []
-    global datas
-    datas = []
-    global vw
-    vw = ""
-    global i2
-    i2 = []
-    text = word
-    cutword()
-    #print(data)
-    z = rhyme(text)
-    #print(z)
-    convertdata()
-    #print(datas)
-    find()
-    #print(i2)
-    show()
+cutword()
+#print(data)
+z = rhyme(text)
+#print(z)
+convertdata()
+#print(datas)
+find()
+#print(i2)
+show()
 #print(data0[:30])
-
-
+"""

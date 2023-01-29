@@ -9,16 +9,25 @@ from bs4 import BeautifulSoup
 from time import sleep
 
 
+
+tu = str.maketrans("มวกขฃคฅฆงยญณนฎฏดตศษสบปพภผฝฟหอฮจฉชซฌฐฑฒถทธรฤลฦ"
+                   ,"mw111111g233344444445555666666777778888889999")
+
+tu2 = str.maketrans("ะัาิีึืุูเแโอยำใไว็"
+                   ,"abcdefghijklmnopqrs")
+
+
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def drop():
-    types = ['กลอนสุภาพ','กาพย์ยานี ๑๑',"กาพย์ฉบัง ๑๖"]
-    return render_template('index.html', types=types)
+    types = ['กาพย์ฉบัง ๑๖','กาพย์ยานี ๑๑',"กลอนสุภาพ"]
+    return render_template('index.html', types=types, texty=[])
 
 @app.route('/')
 def index() :
-    return render_template("index.html")
+    return render_template("index.html", texty=[])
 
 
 """
@@ -120,32 +129,22 @@ def submit():
                     text3[x][z] = 1
 
 
+
     return render_template("rhyme.html",text=text2, text3=text3)
 
 
 @app.route('/submit2', methods=['POST'])
 def submit2():
+    types = ['กาพย์ฉบัง ๑๖','กาพย์ยานี ๑๑',"กลอนสุภาพ"]
     text = request.form['text']
-    text2 = ssg.syllable_tokenize(text)
-    text44 = text2[-1]
-
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get("http://rhymethai.com")
-    driver.find_element(By.NAME, 'inputword').send_keys(text44)#พิมขื่อ
-    driver.find_element(By.CSS_SELECTOR, '.btn:not(:disabled):not(.disabled)').click()#กดค้นหา
-  #a = driver.find_element(By.CLASS_NAME, "card-body")
+    text2 = ssg.syllable_tokenize(text)#ตัดคํา
+    text44 = text2[-1]#เอาคําสุดท้ายที่พิม
+    text55 = final(text44)#returnคําคล้องจองกลับมา
 
 
-    soup = BeautifulSoup(driver.page_source)#ดึงหน้าwebมา
-    element = soup.find(class_="text-center")#ตัดชื่อเว็บ
-    element.decompose()
-    element2 = soup.find(class_="form-inline justify-content-center")#ตัดปุ่มค้นหาของเว็บ
-    element2.decompose()
-    soup = soup.find(class_="card-body")#เอาแค่ส่วนเนื้อหา
-    #page = soup.getText("\n\r")
 
 
-    return render_template("index.html", text=text, texty=soup)
+    return render_template("index.html", text=text, texty=text55, types=types)
 
 if __name__ == "__main__":
     app.debug=True

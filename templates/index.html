@@ -2,7 +2,7 @@
 <html lang="en">
 <style>
     body {
-        background-color: rgb(255, 253, 208);
+        background-color: white;;
         color: rgb(0, 0, 0);
     }
     ul {
@@ -22,6 +22,94 @@
         padding: 14px 16px;
         text-decoration: none;
     }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    /* Style the header with a grey background and some padding */
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+}
+
+/* Style the header links */
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/* Change the background color on mouse-over */
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the active/current link*/
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: right;
+}
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+.container {
+  background-color: gray;
+  color: white;
+  border-radius: 25px;
+  margin: 20px;
+  padding: 20px;
+
+}
+.center {
+  text-align: center;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+.from2 {
+  text-align: center;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+.button1 {
+  border-radius: 8px;
+}
+
 </style>
 <head>
     <meta charset="UTF-8">
@@ -30,12 +118,16 @@
     <title>kavee</title>
 </head>
 <body>
-    <ul>
-        <li><a>Kavee</a></li>
-    </ul>
+    <div class="header">
+  <a href="#default" class="logo">kavee</a>
+  <div class="header-right">
+    <a class="active" href="#home">Home</a>
+    <a onclick="window.location.href='https://forms.gle/ugtpNidKJoACLA599';">review</a>
+  </div>
+</div>
     <div class="container">
-        <h2>คําประพันธ์ของคุณ</h2>
-        <form action="{{ url_for('submit') }}" method="post">
+        <h2 class="center">คําประพันธ์ของคุณ</h2>
+        <form class="from2" action="{{ url_for('submit') }}" method="post">
             <select name="types" action="/" method="GET">
             {% for type in types %}
                 <option value= "{{types[1]}}" SELECTED>{{type}}</option>
@@ -44,21 +136,40 @@
             <br>
             <textarea name="text" cols="100" rows="10">{{text}}</textarea>
             <br>
-            <button type="submit" formaction="/submit">ตรวจ</button>
-            <button type="submit" formaction="/submit2">หาคําคล้องจอง</button>
+            <button class= button1 type="submit" formaction="/submit">ตรวจ</button>
+            <button class= button1 type="submit" formaction="/submit2">หาคําคล้องจอง</button>
         </form>
     </div>
-    {{texty}}
 
-    <p id="texty"></p>
+    <p id="table"></p>
     <script>
-        var txt = texttt;
-        console.log(txt);
+        var lis = JSON.parse('{{ texty | tojson }}');
+        console.log(lis);
+        var outstr = "";
 
+        outstr = outstr.concat("<h3>พบคําคล้องจองทั้งหมด ");
+        outstr = outstr.concat(lis.length);
+        outstr = outstr.concat(" คํา</h3>");
+        outstr = outstr.concat("<table>");
+        outstr = outstr.concat("<tr>");
+
+        for(i=0; i < lis.length; i++){//loopขึ้นบรรทัดใหม่
+             word = lis[i];//ทําlisกลับเป็นarray
+             console.log(i);
+             outstr = outstr.concat("<td>");
+             outstr = outstr.concat(word);
+             outstr = outstr.concat("</td>");
+             if(((i+1)%5) == 0){
+             outstr = outstr.concat("</tr>");
+             outstr = outstr.concat("<tr>");}}
+
+
+
+
+        outstr = outstr.concat("</table>");
+
+         document.getElementById("table").innerHTML = outstr
     </script>
-
-
-
 
 
 </body>
