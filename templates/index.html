@@ -109,6 +109,10 @@
 .button1 {
   border-radius: 8px;
 }
+.textarea {
+    height: 10em;
+    width: 100%;
+}
 
 </style>
 <head>
@@ -135,7 +139,7 @@
             {% endfor %}
             </select>
             <br>
-            <textarea name="text" cols="100" rows="10">{{text}}</textarea>
+            <textarea class="textarea" name="text" >{{text}}</textarea>
             <br>
             <button class= button1 type="submit" formaction="/submit">ตรวจ</button>
             <button class= button1 type="submit" formaction="/submit2">หาคําคล้องจอง</button>
